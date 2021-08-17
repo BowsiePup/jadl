@@ -1,10 +1,10 @@
 import Collection from '@discordjs/collection'
 import { EventEmitter } from '@jpbberry/typed-emitter'
 import { APIGuildMember, GatewayGuildMemberAddDispatchData, GatewayGuildMembersChunkDispatchData, GatewayOpcodes, GatewayPresenceUpdateData, GatewayRequestGuildMembersData, Snowflake } from 'discord-api-types'
+import { Worker } from '../clustering/worker/Worker'
 import { OPEN } from 'ws'
 import { State } from '../clustering/ThreadComms'
 import { DiscordDefaultEventMap } from '../typings/Discord'
-import { Worker } from '../typings/lib'
 import { DiscordSocket } from './WebSocket'
 
 /**
@@ -49,7 +49,7 @@ export class Shard extends EventEmitter<DiscordDefaultEventMap & { CLOSED: [code
 
           if (this.unavailableGuilds.size) this.worker.log(`Shard ${this.id} reported ${this.unavailableGuilds.size} unavailable guilds. Continuing startup.`)
 
-          this.unavailableGuilds.keyArray().forEach(id => {
+          this.unavailableGuilds.forEach((_, id) => {
             this.worker.emit('GUILD_UNAVAILABLE', { id, unavailable: true })
           })
 

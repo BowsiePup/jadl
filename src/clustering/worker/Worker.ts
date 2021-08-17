@@ -11,10 +11,6 @@ import { APIUser, PresenceUpdateStatus, Snowflake, ActivityType, APIGuildMember,
 
 import { guildShard } from '../../utils/UtilityFunctions'
 
-import { CommandHandler } from '../../structures/CommandHandler'
-
-import { RestManager } from '../../rest/Manager'
-
 import { EventEmitter } from '@jpbberry/typed-emitter'
 import { CompleteBotOptions } from '../../typings/options'
 
@@ -30,15 +26,6 @@ export class Worker<ExtraEvents = {}> extends EventEmitter<DiscordEventMap & Ext
    * All shards on this cluster
    */
   public shards: Collection<number, Shard> = new Collection()
-
-  /**
-   * Rest manager
-   */
-  public api = {} as RestManager
-  /**
-   * Command handler
-   */
-  public commands: CommandHandler = new CommandHandler(this)
   /**
    * Thread communications
    */
@@ -87,7 +74,6 @@ export class Worker<ExtraEvents = {}> extends EventEmitter<DiscordEventMap & Ext
   }
 
   async start (shardNumbers: number[]): Promise<void> {
-    this.api = new RestManager(this.options.token)
     this.cacheManager = new CacheManager(this)
 
     for (let i = 0; i < shardNumbers.length; i++) {
@@ -172,7 +158,7 @@ export class Worker<ExtraEvents = {}> extends EventEmitter<DiscordEventMap & Ext
    * Whether or not all shards are online and ready
    */
   get ready (): boolean {
-    return this.api instanceof RestManager && this.shards.every(x => x.ready)
+    return this.shards.every(x => x.ready)
   }
 
   /**

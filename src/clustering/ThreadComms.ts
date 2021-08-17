@@ -3,8 +3,7 @@ import { Worker, MessagePort } from 'worker_threads'
 
 import { generateID } from '../utils/UtilityFunctions'
 import Collection from '@discordjs/collection'
-import { APIGuild, APIMessage, Snowflake } from 'discord-api-types'
-import { MessageTypes } from '../rest/resources/Messages'
+import { APIGuild, Snowflake } from 'discord-api-types'
 import { CompleteBotOptions } from '../typings/options'
 
 enum ThreadMethod {
@@ -125,14 +124,6 @@ export interface ThreadEvents {
   MASTER_EVAL: {
     send: string
     receive: any
-  }
-  SEND_WEBHOOK: {
-    send: {
-      id: Snowflake
-      token: string
-      data: MessageTypes
-    }
-    receive: APIMessage
   }
   GET_STATS: {
     send: null

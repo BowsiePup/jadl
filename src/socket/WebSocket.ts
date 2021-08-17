@@ -41,7 +41,7 @@ export class DiscordSocket {
     if (this.hbInterval) clearInterval(this.hbInterval)
 
     try {
-      this.ws = new WebSocket(this.shard.worker.options.ws + '?v=' + String(this.shard.worker.options.rest?.version ?? 8))
+      this.ws = new WebSocket(this.shard.worker.options.ws + '?v=9')
     } catch (err) {
       if (this.connectTimeout) clearTimeout(this.connectTimeout)
 

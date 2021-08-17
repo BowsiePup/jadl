@@ -2,12 +2,13 @@ import { CacheManager } from '../../../socket/CacheManager'
 import { Worker } from '../Worker'
 
 import { formatBotOptions } from '../../../utils/formatBotOptions'
-import { RestManager } from '../../../rest/Manager'
+// import { RestManager } from '../../../rest/Manager'
 import { Shard } from '../../../socket/Shard'
 
 import { SingleSharder } from './SingleSharder'
 import { SingleThread } from './SingleThread'
 import { BotOptions } from '../../../typings/options'
+import { APIGatewayBotInfo } from 'discord-api-types'
 
 export class SingleWorker extends Worker<{ DEBUG: string }> {
   cacheManager: CacheManager
@@ -20,7 +21,7 @@ export class SingleWorker extends Worker<{ DEBUG: string }> {
 
     this.options = formatBotOptions(options)
     this.cacheManager = new CacheManager(this)
-    this.api = new RestManager(this.options.token)
+    // this.api = new RestManager(this.options.token)
 
     const timeStart = Date.now()
 
@@ -39,7 +40,16 @@ export class SingleWorker extends Worker<{ DEBUG: string }> {
   }
 
   async _beginSingleton (): Promise<void> {
-    const gatewayRequest = await this.api.misc.getGateway()
+    const gatewayRequest: APIGatewayBotInfo = {
+      url: 'wss://gateway.discord.gg',
+      shards: 1,
+      session_start_limit: {
+        max_concurrency: 1,
+        remaining: 1000,
+        reset_after: 1,
+        total: 1
+      }
+    }
 
     this.options.ws = gatewayRequest.url
 

@@ -50,7 +50,6 @@ export function formatBotOptions (options: BotOptions): CompleteBotOptions {
       cachedIntents: options.warnings?.cachedIntents ?? true
     },
     log: options.log,
-    rest: options.rest,
     spawnTimeout: options.spawnTimeout ?? 5100,
     clusterStartRetention: options.clusterStartRetention ?? 3
   }

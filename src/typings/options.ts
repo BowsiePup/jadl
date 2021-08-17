@@ -1,7 +1,6 @@
 import { ChannelType } from 'discord-api-types'
 import { Cluster } from '../clustering/master/Cluster'
 import { Intents } from '../clustering/master/Master'
-import { RestManagerOptions } from '../rest/Manager'
 import { CachedGuild, DiscordEventMap } from './Discord'
 
 type DeepPartial<T> = {
@@ -60,10 +59,6 @@ export interface BaseBotOptions {
      */
     cachedIntents: boolean
   }
-  /**
-   * Options to be passed to the rest manager on every worker
-   */
-  rest: RestManagerOptions
   /**
    * Amount of time between when shards are spawned (don't change unless you know what you're doing)
    * @default 5100

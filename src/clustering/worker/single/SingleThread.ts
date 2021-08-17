@@ -1,5 +1,4 @@
 import { Thread } from '../Thread'
-import { Worker } from '../../../typings/lib'
 
 import { handlers } from './singleHandlers'
 import { ThreadEvents } from '../../ThreadComms'
@@ -12,7 +11,7 @@ export class SingleThread extends Thread {
   public id: string = '0'
 
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-  constructor (public worker: Worker & SingleWorker) {
+  constructor (public worker: SingleWorker) {
     super(worker, false)
 
     const keys = Object.keys(handlers)

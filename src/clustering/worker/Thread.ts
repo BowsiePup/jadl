@@ -1,13 +1,12 @@
-import { APIGuild, APIMessage, Snowflake } from 'discord-api-types'
+import { APIGuild, Snowflake } from 'discord-api-types'
 import { workerData, parentPort, MessagePort } from 'worker_threads'
-import { MessageTypes, MessagesResource } from '../../rest/resources/Messages'
-import { Worker } from '../../typings/lib'
 
 import { ClusterStats, ThreadComms, ThreadEvents } from '../ThreadComms'
 
 import { inspect } from 'util'
 
 import { handlers } from './handlers'
+import { Worker } from '../worker/Worker'
 
 /**
  * Thread interface for interacting with the master process from a worker
@@ -95,17 +94,6 @@ export class Thread extends ThreadComms {
    */
   async masterEval (code: string): Promise<any> {
     return await this.sendCommand('MASTER_EVAL', code)
-  }
-
-  /**
-   * Sends a webhook using the master process, useful for respecting ratelimits
-   * @param webhookId ID of webhook
-   * @param token Token of webhook
-   * @param data Data for message
-   * @returns Message sent
-   */
-  async sendWebhook (webhookId: Snowflake, token: string, data: MessageTypes): Promise<APIMessage> {
-    return await this.sendCommand('SEND_WEBHOOK', { id: webhookId, token, data: MessagesResource._formMessage(data, true) })
   }
 
   /**

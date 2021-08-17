@@ -1,8 +1,8 @@
 import { ThreadEvents, ResolveFunction } from '../../ThreadComms'
 
-import { Worker } from '../../../typings/lib'
 import { APIGuild } from 'discord-api-types'
 import { SingleWorker } from './SingleWorker'
+import { Worker } from '../Worker'
 
 export const handlers: {
   [key in keyof ThreadEvents]?: (this: Worker & SingleWorker, data: ThreadEvents[key]['send'], resolve: ResolveFunction<key>) => void | Promise<void>
@@ -48,9 +48,6 @@ export const handlers: {
   },
   MASTER_EVAL: async function (code, respond) {
     respond?.({ error: 'MASTER_EVAL cannot be used in Singleton mode' })
-  },
-  SEND_WEBHOOK: async function ({ id, token, data }, respond) {
-    respond(await this.api.webhooks.send(id, token, data))
   },
   STATS: async function (_, respond) {
     respond([{

@@ -52,9 +52,6 @@ export const handlers: {
       respond({ error: err.message })
     }
   },
-  SEND_WEBHOOK: async function ({ id, token, data }, respond) {
-    respond(await this.master.rest.webhooks.send(id, token, data))
-  },
   STATS: async function (_, respond) {
     respond(await this.master.getStats())
   }

@@ -26,15 +26,6 @@ const { SingleWorker } = require('jadl')
 const worker = new SingleWorker({
   token: 'BOT TOKEN'
 })
-
-worker.commands
-  .prefix('!')
-  .add({
-    command: 'hello',
-    exec: (ctx) => {
-      ctx.reply('World!')
-    }
-  })
 ```
 
 # Scaled Bot
@@ -58,15 +49,6 @@ master.start()
 const { Worker } = require('jadl')
 
 const worker = new Worker()
-
-worker.commands
-  .prefix('!')
-  .add({
-    command: 'hello',
-    exec: (ctx) => {
-      ctx.reply('World!')
-    }
-  })
 ```
 Do `node ./master.js` and you're off to the races. Scaled automatically.
 
