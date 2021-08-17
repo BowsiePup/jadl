@@ -1,7 +1,7 @@
 {
-  "name": "discord-rose",
+  "name": "jadl",
   "version": "1.5.1",
-  "description": "The simple Discord library for advanced users.",
+  "description": "Just another Discord Library",
   "main": "./dist/index.js",
   "scripts": {
     "build": "npm i && rm -rf ./dist && tsc",
@@ -18,7 +18,7 @@
     "discordapp"
   ],
   "author": "JPBBerry",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/discord-rose/discord-rose/issues"
   },
