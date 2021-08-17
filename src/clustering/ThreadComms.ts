@@ -212,7 +212,7 @@ export class ThreadComms extends EventEmitter<ThreadCommsEventEmitter> {
    * @param event Event to send
    * @param data Data to send along
    * @returns Data back
-   * @link https://github.com/discord-rose/discord-rose/wiki/Using-Clusters#creating-custom-events
+   * @link https://github.com/jpbberry/jadl/wiki/Using-Clusters#creating-custom-events
    */
   public async sendCommand<K extends keyof ThreadEvents>(event: K, data: ThreadEvents[K]['send']): Promise<ThreadEvents[K]['receive']> {
     return await new Promise((resolve, reject) => {
@@ -242,7 +242,7 @@ export class ThreadComms extends EventEmitter<ThreadCommsEventEmitter> {
    * Tells the master something
    * @param event Event to send
    * @param data Data to send
-   * @link https://github.com/discord-rose/discord-rose/wiki/Using-Clusters#creating-custom-events
+   * @link https://github.com/jpbberry/jadl/wiki/Using-Clusters#creating-custom-events
    */
   public tell<K extends keyof ThreadEvents>(event: K, data: ThreadEvents[K]['send']): void {
     this._send(ThreadMethod.TELL, event, null, data)

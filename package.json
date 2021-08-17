@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/discord-rose/discord-rose.git"
+    "url": "git+https://github.com/jpbberry/jadl.git"
   },
   "keywords": [
     "discord",
@@ -20,9 +20,9 @@
   "author": "JPBBerry",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/discord-rose/discord-rose/issues"
+    "url": "https://github.com/jpbberry/jadl/issues"
   },
-  "homepage": "https://rose.js.org",
+  "homepage": "https://jadl.js.org",
   "dependencies": {
     "@discordjs/collection": "^0.1.6",
     "@jpbberry/cache": "^1.0.4",

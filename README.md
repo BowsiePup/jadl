@@ -1,26 +1,27 @@
-# Discord-Rose
+# Just another Discord Library
+*Formally known as discord-rose, pronounced jay-dull*
 
 ## The simple Discord library for advanced users.
 
 # Installation
 
-Run `npm i --save discord-rose`
+Run `npm i --save jadl`
 
 ## Links
 
-[Wiki](https://github.com/discord-rose/discord-rose/wiki) [Docs](https://rose.js.org)
+[Wiki](https://github.com/jpbberry/jadl/wiki) [Docs](https://jadl.js.org)
 
 [Support Server](https://discord.gg/EdpA6qRHhs)
 
-[NPM](https://npmjs.com/package/discord-rose), [GitHub](https://github.com/discord-rose/discord-rose)
+[NPM](https://npmjs.com/package/jadl), [GitHub](https://github.com/jpbberry/jadl)
 
 # Simple bot
 
-You can easily use the `SingleWorker` class for easy use of discord-rose, for scaled solution, look [below](#scaled-bot)
+You can easily use the `SingleWorker` class for easy use of JADL, for scaled solution, look [below](#scaled-bot)
 
 **./index.js**
 ```js
-const { SingleWorker } = require('discord-rose')
+const { SingleWorker } = require('jadl')
 
 const worker = new SingleWorker({
   token: 'BOT TOKEN'
@@ -42,7 +43,7 @@ You can instead use a `Master` & `Worker` solution, one master managing multiple
 
 **./master.js**
 ```js
-const { Master } = require('discord-rose')
+const { Master } = require('jadl')
 const path = require('path')
 
 const master = new Master(path.resolve(__dirname, './worker.js'), {
@@ -54,7 +55,7 @@ master.start()
 
 **./worker.js**
 ```js
-const { Worker } = require('discord-rose')
+const { Worker } = require('jadl')
 
 const worker = new Worker()
 
@@ -72,6 +73,6 @@ Do `node ./master.js` and you're off to the races. Scaled automatically.
 *Do note if your bot only ever fits into 1 cluster (< 5000 servers by default), you should consider using [SingleWorker](#simple-bot) since master & worker introduce more process overhead*
 
 
-You can even easily implement [slash commands](https://github.com/discord-rose/discord-rose/wiki/Slash-Commands) directly within message commands.
+You can even easily implement [slash commands](https://github.com/jpbberry/jadl/wiki/Slash-Commands) directly within message commands.
 
-## Ready to take it to the next level? Take a look out our [Wiki](https://github.com/discord-rose/discord-rose/wiki)
+## Ready to take it to the next level? Take a look out our [Wiki](https://github.com/jpbberry/jadl/wiki)

@@ -150,7 +150,7 @@ export class DiscordSocket {
         token: this.shard.worker.options.token,
         properties: {
           $os: 'linux',
-          $browser: 'Discord-Rose',
+          $browser: 'JADL',
           $device: 'bot'
         }
       }

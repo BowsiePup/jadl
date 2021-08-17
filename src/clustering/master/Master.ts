@@ -37,7 +37,7 @@ export class Master extends EventEmitter<{
 
   /**
    * Handler emitter
-   * @link https://github.com/discord-rose/discord-rose/wiki/Using-Clusters#creating-custom-events
+   * @link https://github.com/jpbberry/jadl/wiki/Using-Clusters#creating-custom-events
    */
   public handlers = new EventEmitter() as {
     on: <K extends keyof ThreadEvents>(event: K, listener: (cluster: Cluster, data: ThreadEvents[K]['send'], resolve: ResolveFunction<K>) => void) => any

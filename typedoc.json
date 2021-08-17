@@ -2,7 +2,7 @@
   "out": "./docs/",
   "entryPoints": ["src/index.ts"],
   "readme": "./README.md",
-  "name": "discord-rose",
+  "name": "JADL",
   "excludeExternals": true,
   "excludePrivate": true,
   "excludeInternal": true,

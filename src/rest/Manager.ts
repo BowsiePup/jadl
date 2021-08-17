@@ -151,7 +151,7 @@ export class RestManager extends EventEmitter<{
     if (options.body) headers.set('Content-Type', 'application/json')
     if (options.reason) headers.set('X-Audit-Log-Reason', options.reason)
 
-    headers.set('User-Agent', 'DiscordBot (Discord-Rose, v0)')
+    headers.set('User-Agent', 'DiscordBot (JADL, v0)')
 
     if (options.headers) {
       Object.keys(options.headers).forEach(key => {
