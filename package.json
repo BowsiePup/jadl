@@ -1,6 +1,6 @@
 {
   "name": "jadl",
-  "version": "1.5.1",
+  "version": "0.0.1",
   "description": "Just another Discord Library",
   "main": "./dist/index.js",
   "scripts": {
