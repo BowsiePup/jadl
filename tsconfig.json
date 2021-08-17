@@ -10,6 +10,6 @@
     "lib": ["ES6"],
     "module": "commonjs",
     "outDir": "dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
   }
 }

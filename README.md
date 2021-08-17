@@ -1,7 +1,7 @@
 # Just another Discord Library
-*Formally known as discord-rose, pronounced jay-dull*
+*Formerly known as discord-rose, pronounced jay-dull*
 
-## The simple Discord library for advanced users.
+Scale clean and hassle-free Discord bots with a simple library catered for advanced developers. Develop with ease and confidence now.
 
 # Installation
 

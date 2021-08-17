@@ -1,10 +1,9 @@
 {
-  "out": "./docs/",
-  "entryPoints": ["src/index.ts"],
+  "out": "./docs",
+  "entryPoints": ["src/index.ts", "guides"],
   "readme": "./README.md",
   "name": "JADL",
   "excludeExternals": true,
   "excludePrivate": true,
-  "excludeInternal": true,
-  "theme": "minimal"
+  "excludeInternal": true
 }
