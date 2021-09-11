@@ -32,6 +32,8 @@ jobs:
         run: npm run build:ci
 
       - name: Publish Library
-        run: npx lerna publish --yes --no-changelog --no-verify-access
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > "${GITHUB_WORKSPACE}/.npmrc"
+          npx lerna publish --yes --no-changelog --no-verify-access
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
