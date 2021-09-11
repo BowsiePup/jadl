@@ -4,6 +4,7 @@ node_modules/
 test/
 guides
 docs
+.npmrc
 lerna.json
 tsconfig.json
 .gitignore
