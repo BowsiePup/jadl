@@ -9,8 +9,6 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -35,3 +33,5 @@ jobs:
 
       - name: Publish Library
         run: npx lerna publish --yes --no-changelog --no-verify-access
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
