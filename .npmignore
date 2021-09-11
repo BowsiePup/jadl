@@ -2,6 +2,9 @@ src/
 node_modules/
 .vscode/
 test/
+guides
+docs
+lerna.json
 tsconfig.json
 .gitignore
 .github
