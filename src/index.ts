@@ -15,7 +15,7 @@ export * from './clustering/worker/single/SingleWorker'
 
 export * from './socket/Shard'
 
-export { PermissionsUtils } from './utils/Permissions'
+export { PermissionUtils, humanReadablePermissions } from './utils/Permissions'
 
 export { DiscordEventMap, CachedGuild, CachedVoiceState } from './typings/Discord'
 
