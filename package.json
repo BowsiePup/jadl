@@ -5,8 +5,8 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "npm i && tsc",
+    "build:ci": "tsc",
     "lint": "eslint ./src",
-    "prepublishOnly": "npm run build",
     "docs": "typedoc"
   },
   "repository": {
