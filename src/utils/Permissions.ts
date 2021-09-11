@@ -3,45 +3,47 @@ import { APIGuildMember, APIOverwrite, OverwriteType, Snowflake } from 'discord-
 import { CachedGuild, DiscordEventMap } from '../typings/Discord'
 
 export const bits = {
-  createInvites: 0x0000000001,
-  kick: 0x0000000002,
-  ban: 0x0000000004,
-  administrator: 0x0000000008,
-  manageChannels: 0x0000000010,
-  manageGuild: 0x0000000020,
-  addReactions: 0x0000000040,
-  auditLog: 0x0000000080,
-  prioritySpeaker: 0x0000000100,
-  stream: 0x0000000200,
-  viewChannel: 0x0000000400,
-  sendMessages: 0x0000000800,
-  tts: 0x0000001000,
-  manageMessages: 0x0000002000,
-  embed: 0x0000004000,
-  files: 0x0000008000,
-  readHistory: 0x0000010000,
-  mentionEveryone: 0x0000020000,
-  externalEmojis: 0x0000040000,
-  viewInsights: 0x0000080000,
-  connect: 0x0000100000,
-  speak: 0x0000200000,
-  mute: 0x0000400000,
-  deafen: 0x0000800000,
-  move: 0x0001000000,
-  useVoiceActivity: 0x0002000000,
-  nickname: 0x0004000000,
-  manageNicknames: 0x0008000000,
-  manageRoles: 0x0010000000,
-  webhooks: 0x0020000000,
-  emojis: 0x0040000000,
-  useSlashCommands: 0x0080000000,
-  requestToSpeak: 0x0100000000,
-  manageThreads: 0x0400000000,
-  usePublicThreads: 0x0800000000,
-  usePrivateThreads: 0x1000000000
+  createInvites: 1n << 0n,
+  kick: 1n << 1n,
+  ban: 1n << 2n,
+  administrator: 1n << 3n,
+  manageChannels: 1n << 4n,
+  manageGuild: 1n << 5n,
+  addReactions: 1n << 6n,
+  auditLog: 1n << 7n,
+  prioritySpeaker: 1n << 8n,
+  stream: 1n << 9n,
+  viewChannel: 1n << 10n,
+  sendMessages: 1n << 11n,
+  tts: 1n << 12n,
+  manageMessages: 1n << 13n,
+  embed: 1n << 14n,
+  files: 1n << 15n,
+  readHistory: 1n << 16n,
+  mentionEveryone: 1n << 17n,
+  externalEmojis: 1n << 18n,
+  viewInsights: 1n << 19n,
+  connect: 1n << 20n,
+  speak: 1n << 21n,
+  mute: 1n << 22n,
+  deafen: 1n << 23n,
+  move: 1n << 24n,
+  useVoiceActivity: 1n << 25n,
+  nickname: 1n << 26n,
+  manageNicknames: 1n << 27n,
+  manageRoles: 1n << 28n,
+  webhooks: 1n << 29n,
+  emojis: 1n << 30n,
+  useApplicationCommands: 31n,
+  requestToSpeak: 1n << 32n,
+  manageThreads: 1n << 34n,
+  createPublicThreads: 1n << 35n,
+  createPrivateThreads: 1n << 36n,
+  useExternalStickers: 1n << 37n,
+  sendMessagesInThreads: 1n << 38n
 }
 
-export const PermissionsUtils = {
+export const PermissionUtils = {
   bits: bits,
 
   /**
@@ -55,26 +57,12 @@ export const PermissionsUtils = {
   },
 
   /**
-   * @deprecated
-   */
-  calculate (member: APIGuildMember, guild: CachedGuild, roleList: Collection<Snowflake, DiscordEventMap['GUILD_ROLE_CREATE']['role']>, required: keyof typeof bits): boolean {
-    if (guild.owner_id === member.user?.id) return true
-    return this.has(
-      member.roles.reduce(
-        (a, b) => a | Number(roleList.get(b)?.permissions),
-        Number(roleList.get(guild.id)?.permissions)
-      ),
-      required
-    )
-  },
-
-  /**
    * Adds multiple permission sources together
    * @param data Data filled with possible permission data
    * @returns Full permission bit
    */
-  combine (data: { member: APIGuildMember, guild: CachedGuild, roleList?: Collection<Snowflake, DiscordEventMap['GUILD_ROLE_CREATE']['role']>, overwrites?: APIOverwrite[] }): number {
-    if (data.member.user?.id === data.guild.owner_id) return PermissionsUtils.bits.administrator
+  combine (data: { member: APIGuildMember, guild: CachedGuild, roleList?: Collection<Snowflake, DiscordEventMap['GUILD_ROLE_CREATE']['role']>, overwrites?: APIOverwrite[] }): bigint {
+    if (data.member.user?.id === data.guild.owner_id) return PermissionUtils.bits.administrator
     let result = data.roleList ? BigInt(data.roleList.get(data.guild.id)?.permissions ?? 0) : BigInt(0)
 
     if (data.roleList) {
@@ -111,7 +99,7 @@ export const PermissionsUtils = {
       })
     }
 
-    return Number(result)
+    return result
   },
 
   /**
@@ -126,4 +114,47 @@ export const PermissionsUtils = {
 
     return false
   }
+}
+
+export const humanReadablePermissions: {
+  [key in keyof typeof bits]: string
+} = {
+  createInvites: 'Create Invites',
+  kick: 'Kick Members',
+  ban: 'Ban Members',
+  administrator: 'Administrator',
+  manageChannels: 'Manage Channels',
+  manageGuild: 'Manage Server',
+  addReactions: 'Add Reactions',
+  auditLog: 'View Audit Log',
+  prioritySpeaker: 'Priority Speaker',
+  stream: 'Stream',
+  viewChannel: 'View Channel(s)',
+  sendMessages: 'Send Messages',
+  tts: 'Send Text-to-Speech Messages',
+  manageMessages: 'Manage Messages',
+  embed: 'Embed Links',
+  files: 'Attach Files',
+  readHistory: 'Read Message History',
+  mentionEveryone: 'Mention \\@everyone, \\@here, and All Roles',
+  externalEmojis: 'Use External Emoji',
+  viewInsights: 'View Server Invites',
+  connect: 'Connect (Voice)',
+  speak: 'Speak (Voice)',
+  mute: 'Mute (Voice)',
+  deafen: 'Deafen (Voice)',
+  move: 'Move (Voice)',
+  useVoiceActivity: 'Use Voice Activity',
+  nickname: 'Change Nickname',
+  manageNicknames: 'Manage Nicknames',
+  manageRoles: 'Manage Roles',
+  webhooks: 'Manage Webhooks',
+  emojis: 'Manage Emojis',
+  useApplicationCommands: 'Use Application Commands',
+  requestToSpeak: 'Request to Speak',
+  manageThreads: 'Manage Threads',
+  createPublicThreads: 'Create Public Threads',
+  createPrivateThreads: 'Create Private Threads',
+  sendMessagesInThreads: 'Send Messages in Threads',
+  useExternalStickers: 'Use External Stickers'
 }
