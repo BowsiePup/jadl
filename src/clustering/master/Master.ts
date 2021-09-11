@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { APIGatewaySessionStartLimit, Snowflake, APIGatewayBotInfo } from 'discord-api-types'
+import { APIGatewaySessionStartLimit, Snowflake } from 'discord-api-types'
 
 import { chunkShards, guildShard } from '../../utils/UtilityFunctions'
 
@@ -15,6 +15,7 @@ import path from 'path'
 import { EventEmitter } from '@jpbberry/typed-emitter'
 import { formatBotOptions } from '../../utils/formatBotOptions'
 import { BotOptions, CompleteBotOptions } from '../../typings/options'
+import { RestManager } from '@discord-rose/rest'
 
 /**
  * Master process controller
@@ -65,6 +66,8 @@ export class Master extends EventEmitter<{
    * Session data (Set after .start())
    */
   public session: APIGatewaySessionStartLimit
+
+  rest: RestManager
 
   /**
    * Log function
@@ -139,16 +142,9 @@ export class Master extends EventEmitter<{
   async start (): Promise<void> {
     const timeStart = Date.now()
 
-    const gatewayRequest: APIGatewayBotInfo = {
-      url: 'wss://gateway.discord.gg',
-      shards: 1,
-      session_start_limit: {
-        max_concurrency: 1,
-        remaining: 1000,
-        reset_after: 1,
-        total: 1
-      }
-    }
+    this.rest = new RestManager(this.options.token)
+
+    const gatewayRequest = await this.rest.misc.getGateway()
 
     this.debug(`Start gateway: ${JSON.stringify(gatewayRequest)}`)
 

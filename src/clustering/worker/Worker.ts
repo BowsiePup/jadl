@@ -14,6 +14,8 @@ import { guildShard } from '../../utils/UtilityFunctions'
 import { EventEmitter } from '@jpbberry/typed-emitter'
 import { CompleteBotOptions } from '../../typings/options'
 
+import { RestManager } from '@discord-rose/rest'
+
 /**
  * Cluster Worker used on the worker thread
  */
@@ -67,6 +69,8 @@ export class Worker<ExtraEvents = {}> extends EventEmitter<DiscordEventMap & Ext
 
   public cacheManager = {} as CacheManager
 
+  public api: RestManager
+
   constructor (connectComms = true) {
     super()
 
@@ -75,6 +79,7 @@ export class Worker<ExtraEvents = {}> extends EventEmitter<DiscordEventMap & Ext
 
   async start (shardNumbers: number[]): Promise<void> {
     this.cacheManager = new CacheManager(this)
+    this.api = new RestManager(this.options.token)
 
     for (let i = 0; i < shardNumbers.length; i++) {
       const shard = new Shard(shardNumbers[i], this)

@@ -14,10 +14,6 @@ export interface CachedVoiceState {
 }
 
 export interface DiscordDefaultEventMap {
-  'APPLICATION_COMMAND_CREATE': types.GatewayApplicationCommandCreateDispatchData
-  'APPLICATION_COMMAND_UPDATE': types.GatewayApplicationCommandUpdateDispatchData
-  'APPLICATION_COMMAND_DELETE': types.GatewayApplicationCommandDeleteDispatchData
-
   'CHANNEL_CREATE': types.GatewayChannelCreateDispatchData
   'CHANNEL_UPDATE': types.GatewayChannelUpdateDispatchData
   'CHANNEL_DELETE': types.GatewayChannelDeleteDispatchData
