@@ -1,0 +1,36 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Fetch Tags
+        run: git fetch --prune --tags
+
+      - name: Configure CI Git User
+        run: |
+          git config --global user.name '@jadl-bot'
+          git config --global user.email 'jadl-bot@users.noreply.github.com'
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+          scope: "@jadl"
+
+      - name: Install Dependencies
+        run: npm i --also=dev
+
+      - name: Build Library
+        run: npm run build
+
+      - name: Publish Library
+        run: NODE_AUTH_TOKEN=${{secrets.NPM_SECRET}} npx lerna publish --yes --no-changelog
