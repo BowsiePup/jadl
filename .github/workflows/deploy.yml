@@ -33,4 +33,4 @@ jobs:
         run: npm run build
 
       - name: Publish Library
-        run: NODE_AUTH_TOKEN=${{secrets.NPM_SECRET}} npx lerna publish --yes --no-changelog
+        run: NODE_AUTH_TOKEN=${{secrets.NPM_SECRET}} npx lerna publish --yes --no-changelog --no-verify-access
