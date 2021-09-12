@@ -54,7 +54,8 @@ Do `node ./master.js` and you're off to the races. Scaled automatically.
 
 *Do note if your bot only ever fits into 1 cluster (< 5000 servers by default), you should consider using [SingleWorker](#simple-bot) since master & worker introduce more process overhead*
 
+# Commands
 
-You can even easily implement [slash commands](https://github.com/jpbberry/jadl/wiki/Slash-Commands) directly within message commands.
+Commands are offloaded to a separate library, you can of course just build your own with the given Discord events, but feel free to checkout [@jadl/cmd](https://npmjs.com/@jadl/cmd), a competent super-powered command handler built around decorators (TypeScript only) and slash commands only, made simple and easy to use.
 
 ## Ready to take it to the next level? Take a look out our [Wiki](https://github.com/jpbberry/jadl/wiki)
