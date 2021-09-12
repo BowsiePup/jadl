@@ -1,6 +1,6 @@
 {
   "name": "jadl",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Scale clean and hassle-free Discord bots with a simple library catered for advanced developers. Develop with ease and confidence now.",
   "main": "./dist/index.js",
   "scripts": {
@@ -43,7 +43,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
-    "typedoc": "^0.20.37",
+    "typedoc": "^0.22.2",
     "typescript": "4.2.3"
   },
   "typings": "./dist/index.d.ts"
