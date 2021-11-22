@@ -7,7 +7,8 @@ import { Shard } from '../../../socket/Shard'
 import { SingleSharder } from './SingleSharder'
 import { SingleThread } from './SingleThread'
 import { BotOptions } from '../../../typings/options'
-import { RestManager } from '@discord-rose/rest'
+import { APIGatewayBotInfo } from 'discord-api-types'
+import { REST } from '@discordjs/rest'
 
 export class SingleWorker extends Worker<{ DEBUG: string }> {
   cacheManager: CacheManager
@@ -21,7 +22,8 @@ export class SingleWorker extends Worker<{ DEBUG: string }> {
     this.options = formatBotOptions(options)
 
     this.cacheManager = new CacheManager(this)
-    this.api = new RestManager(this.options.token)
+    this.api = new REST()
+      .setToken(this.options.token)
 
     const timeStart = Date.now()
 
@@ -40,7 +42,7 @@ export class SingleWorker extends Worker<{ DEBUG: string }> {
   }
 
   async _beginSingleton (): Promise<void> {
-    const gatewayRequest = await this.api.misc.getGateway()
+    const gatewayRequest = await this.api.get('/gateway/bot') as APIGatewayBotInfo
 
     this.options.ws = gatewayRequest.url
 

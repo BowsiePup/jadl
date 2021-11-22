@@ -1,8 +1,5 @@
-import { ChannelType } from 'discord-api-types'
 import { Intents } from '../clustering/master/Master'
 import { BotOptions, CompleteBotOptions } from '../typings/options'
-
-const CachedChannelTypes = ['text', 'voice', 'category'] as const
 
 export function formatBotOptions (options: BotOptions): CompleteBotOptions {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
@@ -39,30 +36,13 @@ export function formatBotOptions (options: BotOptions): CompleteBotOptions {
       roles: false
     },
     ws: options.ws ?? '',
-    intents: Array.isArray(options.intents)
-      ? options.intents.reduce((a, b: any) => a | Intents[b], 0)
-      : options.intents === true
-        ? Object.values(Intents).reduce((a, b) => a | b, 0)
-        : options.intents
-          ? options.intents
-          : Object.values(Intents).reduce((a, b) => a | b) & ~Intents.GUILD_MEMBERS & ~Intents.GUILD_PRESENCES,
+    intents: options.intents ? options.intents : Object.values(Intents).reduce((a, b) => a | b) & ~Intents.GUILD_MEMBERS & ~Intents.GUILD_PRESENCES,
     warnings: {
       cachedIntents: options.warnings?.cachedIntents ?? true
     },
     log: options.log,
     spawnTimeout: options.spawnTimeout ?? 5100,
     clusterStartRetention: options.clusterStartRetention ?? 3
-  }
-
-  if ((opts.cache?.channels as unknown as boolean | typeof CachedChannelTypes[number]) === true) {
-    opts.cache.channels = true
-  } else if (opts.cache.channels) {
-    const channelCaches = (opts.cache?.channels as unknown as boolean | typeof CachedChannelTypes[number]) === true ? CachedChannelTypes : (opts.cache.channels as unknown as typeof CachedChannelTypes[number]) ?? [] as Array<typeof CachedChannelTypes[number]>
-    opts.cache.channels = [] as ChannelType[]
-
-    if (channelCaches.includes('text')) opts.cache?.channels?.push(ChannelType.GuildNews, ChannelType.GuildText)
-    if (channelCaches.includes('voice')) opts.cache?.channels?.push(ChannelType.GuildVoice)
-    if (channelCaches.includes('category')) opts.cache?.channels?.push(ChannelType.GuildCategory)
   }
 
   if (opts.warnings?.cachedIntents) {

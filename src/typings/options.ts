@@ -1,6 +1,5 @@
 import { ChannelType } from 'discord-api-types'
 import { Cluster } from '../clustering/master/Cluster'
-import { Intents } from '../clustering/master/Master'
 import { CachedGuild, DiscordEventMap } from './Discord'
 
 type DeepPartial<T> = {
@@ -28,7 +27,7 @@ export interface BaseBotOptions {
   /**
    * Array of intents to enable if true, enables all, if undefined enables all non-priveleged intents.
    */
-  intents: true | number | Array<keyof typeof Intents>
+  intents: number
   /**
    * Amount of shards to add after requesting shards
    */
@@ -92,7 +91,7 @@ export interface CacheOptions {
    * @default true
    * @sets Worker.channels = Collection<Snowflake (Channel ID), APIChannel>
    */
-  channels: boolean | Array<'text' | 'voice' | 'category'> | ChannelType[] | true
+  channels: ChannelType[] | true
   /**
    * Caches self member
    * @default true
@@ -136,14 +135,9 @@ export interface CacheControlOptions {
   voiceStates: Array<keyof DiscordEventMap['VOICE_STATE_UPDATE']> | false
 }
 
-interface CompleteCacheOptions extends CacheOptions {
-  channels: ChannelType[] | true
-}
-
 export interface CompleteBotOptions extends BaseBotOptions {
   shards: number
-  cache: CompleteCacheOptions
-  intents: number
+  cache: CacheOptions
 }
 
 export interface BotOptions extends DeepPartial<BaseBotOptions> {
