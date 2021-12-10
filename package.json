@@ -1,6 +1,6 @@
 {
   "name": "jadl",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Scale clean and hassle-free Discord bots with a simple library catered for advanced developers. Develop with ease and confidence now.",
   "main": "./dist/index.js",
   "scripts": {
