@@ -69,7 +69,7 @@ export class Worker<ExtraEvents = {}> extends EventEmitter<DiscordEventMap & Ext
 
   public cacheManager = {} as CacheManager
 
-  public api: REST
+  public api: REST = new REST()
 
   constructor (connectComms = true) {
     super()
@@ -79,8 +79,7 @@ export class Worker<ExtraEvents = {}> extends EventEmitter<DiscordEventMap & Ext
 
   async start (shardNumbers: number[]): Promise<void> {
     this.cacheManager = new CacheManager(this)
-    this.api = new REST()
-      .setToken(this.options.token)
+    this.api.setToken(this.options.token)
 
     for (let i = 0; i < shardNumbers.length; i++) {
       const shard = new Shard(shardNumbers[i], this)

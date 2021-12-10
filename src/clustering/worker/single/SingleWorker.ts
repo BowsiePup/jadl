@@ -8,7 +8,6 @@ import { SingleSharder } from './SingleSharder'
 import { SingleThread } from './SingleThread'
 import { BotOptions } from '../../../typings/options'
 import { APIGatewayBotInfo } from 'discord-api-types'
-import { REST } from '@discordjs/rest'
 
 export class SingleWorker extends Worker<{ DEBUG: string }> {
   cacheManager: CacheManager
@@ -22,8 +21,7 @@ export class SingleWorker extends Worker<{ DEBUG: string }> {
     this.options = formatBotOptions(options)
 
     this.cacheManager = new CacheManager(this)
-    this.api = new REST()
-      .setToken(this.options.token)
+    this.api.setToken(this.options.token)
 
     const timeStart = Date.now()
 
