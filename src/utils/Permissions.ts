@@ -40,7 +40,9 @@ export const bits = {
   createPublicThreads: 1n << 35n,
   createPrivateThreads: 1n << 36n,
   useExternalStickers: 1n << 37n,
-  sendMessagesInThreads: 1n << 38n
+  sendMessagesInThreads: 1n << 38n,
+  startEmbeddedActivities: 1n << 39n,
+  moderateMembers: 1n << 40n
 }
 
 export const PermissionUtils = {
@@ -156,5 +158,7 @@ export const humanReadablePermissions: {
   createPublicThreads: 'Create Public Threads',
   createPrivateThreads: 'Create Private Threads',
   sendMessagesInThreads: 'Send Messages in Threads',
-  useExternalStickers: 'Use External Stickers'
+  useExternalStickers: 'Use External Stickers',
+  startEmbeddedActivities: 'Start Activities',
+  moderateMembers: 'Timeout Members'
 }
