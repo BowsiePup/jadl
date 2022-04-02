@@ -1,4 +1,4 @@
-import { ChannelType } from 'discord-api-types/v9'
+import { APIChannel, ChannelType } from 'discord-api-types/v9'
 import { Cluster } from '../clustering/master/Cluster'
 import { CachedGuild, DiscordEventMap } from './Discord'
 
@@ -124,13 +124,15 @@ export interface CacheOptions {
   voiceStates: boolean
 }
 
+type UnionKeys<T> = T extends T ? keyof T : never
+
 /**
  * Changes what properties of a cache should be kept
  */
 export interface CacheControlOptions {
   guilds: Array<keyof CachedGuild> | false
   roles: Array<keyof DiscordEventMap['GUILD_ROLE_CREATE']['role']> | false
-  channels: Array<keyof DiscordEventMap['CHANNEL_CREATE']> | false
+  channels: Array<UnionKeys<APIChannel>> | false
   members: Array<keyof DiscordEventMap['GUILD_MEMBER_ADD']> | false
   voiceStates: Array<keyof DiscordEventMap['VOICE_STATE_UPDATE']> | false
 }
