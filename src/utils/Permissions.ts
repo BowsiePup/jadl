@@ -1,5 +1,5 @@
 import Collection from '@discordjs/collection'
-import { APIGuildMember, APIOverwrite, OverwriteType, Snowflake } from 'discord-api-types'
+import { APIGuildMember, APIOverwrite, OverwriteType, Snowflake } from 'discord-api-types/v9'
 import { CachedGuild, DiscordEventMap } from '../typings/Discord'
 
 export const bits = {

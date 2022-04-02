@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { Thread } from './Thread'
 
-import { DiscordEventMap, CachedGuild, CachedVoiceState } from '../../typings/Discord'
+import { DiscordEventMap, CachedGuild, CachedVoiceState, CachedChannel } from '../../typings/Discord'
 import Collection from '@discordjs/collection'
 
 import { Shard } from '../../socket/Shard'
 import { CacheManager } from '../../socket/CacheManager'
 
-import { APIUser, PresenceUpdateStatus, Snowflake, ActivityType, APIGuildMember, GatewayPresenceUpdateData } from 'discord-api-types'
+import { APIUser, PresenceUpdateStatus, Snowflake, ActivityType, APIGuildMember, GatewayPresenceUpdateData } from 'discord-api-types/v9'
 
 import { guildShard } from '../../utils/UtilityFunctions'
 
@@ -44,7 +44,7 @@ export class Worker<ExtraEvents = {}> extends EventEmitter<DiscordEventMap & Ext
   /**
    * Cached channels
    */
-  public channels: Collection<Snowflake, DiscordEventMap['CHANNEL_CREATE']> = new Collection()
+  public channels: Collection<Snowflake, CachedChannel> = new Collection()
   /**
    * Cached self members
    */
@@ -121,7 +121,7 @@ export class Worker<ExtraEvents = {}> extends EventEmitter<DiscordEventMap & Ext
         {
           name,
           type: ({
-            playing: ActivityType.Game,
+            playing: ActivityType.Playing,
             streaming: ActivityType.Streaming,
             listening: ActivityType.Listening,
             watching: ActivityType.Watching,

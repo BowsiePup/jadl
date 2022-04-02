@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { APIGatewaySessionStartLimit, RESTGetAPIGatewayBotResult, Snowflake } from 'discord-api-types'
+import { APIGatewaySessionStartLimit, RESTGetAPIGatewayBotResult, Snowflake } from 'discord-api-types/v9'
 
 import { chunkShards, guildShard } from '../../utils/UtilityFunctions'
 

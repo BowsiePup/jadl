@@ -1,6 +1,6 @@
 import Collection from '@discordjs/collection'
 import { EventEmitter } from '@jpbberry/typed-emitter'
-import { APIGuildMember, GatewayGuildMemberAddDispatchData, GatewayGuildMembersChunkDispatchData, GatewayOpcodes, GatewayPresenceUpdateData, GatewayRequestGuildMembersData, Snowflake } from 'discord-api-types'
+import { APIGuildMember, GatewayGuildMemberAddDispatchData, GatewayGuildMembersChunkDispatchData, GatewayOpcodes, GatewayPresenceUpdateData, GatewayRequestGuildMembersData, Snowflake } from 'discord-api-types/v9'
 import { Worker } from '../clustering/worker/Worker'
 import { OPEN } from 'ws'
 import { State } from '../clustering/ThreadComms'

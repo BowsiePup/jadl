@@ -2,7 +2,7 @@ import { Worker } from '../../clustering/worker/Worker'
 import { CacheManager } from '../CacheManager'
 
 import Collection from '@discordjs/collection'
-import { GatewayVoiceState, Snowflake } from 'discord-api-types'
+import { GatewayVoiceState, Snowflake } from 'discord-api-types/v9'
 import { CachedVoiceState } from '../../typings/Discord'
 
 export function voiceStates (events: CacheManager, worker: Worker): void {

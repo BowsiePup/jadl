@@ -1,5 +1,5 @@
 import Collection from '@discordjs/collection'
-import { GatewayGuildMemberAddDispatchData } from 'discord-api-types'
+import { GatewayGuildMemberAddDispatchData } from 'discord-api-types/v9'
 import { Worker } from '../../clustering/worker/Worker'
 import { CacheManager } from '../CacheManager'
 

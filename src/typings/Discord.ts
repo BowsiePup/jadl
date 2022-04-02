@@ -1,11 +1,13 @@
 import Collection from '@discordjs/collection'
-import types, { Snowflake } from 'discord-api-types'
+import { APIChannel } from 'discord-api-types/v10'
+import types, { Snowflake } from 'discord-api-types/v9'
 import { Shard } from '../socket/Shard'
 
 /**
  * Represents a guild cached in Worker#guilds. Does not contain `channels`, `roles`, `members`, or `presences`.
  */
 export type CachedGuild = Pick<DiscordEventMap['GUILD_CREATE'], Exclude<keyof DiscordEventMap['GUILD_CREATE'], 'channels' | 'roles' | 'members' | 'presences'>>
+export type CachedChannel = APIChannel & { guild_id: Snowflake }
 
 export interface CachedVoiceState {
   channel_id: Snowflake

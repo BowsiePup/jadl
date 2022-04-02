@@ -3,7 +3,7 @@ import { Worker, MessagePort } from 'worker_threads'
 
 import { generateID } from '../utils/UtilityFunctions'
 import Collection from '@discordjs/collection'
-import { APIGuild, Snowflake } from 'discord-api-types'
+import { APIGuild, Snowflake } from 'discord-api-types/v9'
 import { CompleteBotOptions } from '../typings/options'
 
 enum ThreadMethod {

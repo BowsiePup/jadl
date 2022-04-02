@@ -1,4 +1,4 @@
-import { APIGuild } from 'discord-api-types'
+import { APIGuild } from 'discord-api-types/v9'
 import { ThreadEvents, ResolveFunction } from '../ThreadComms'
 import { Thread } from './Thread'
 

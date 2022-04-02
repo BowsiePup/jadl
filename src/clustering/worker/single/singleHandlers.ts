@@ -1,6 +1,6 @@
 import { ThreadEvents, ResolveFunction } from '../../ThreadComms'
 
-import { APIGuild } from 'discord-api-types'
+import { APIGuild } from 'discord-api-types/v9'
 import { SingleWorker } from './SingleWorker'
 import { Worker } from '../Worker'
 

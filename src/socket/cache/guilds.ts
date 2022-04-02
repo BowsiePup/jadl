@@ -2,7 +2,7 @@ import Collection from '@discordjs/collection'
 import { Worker } from '../../clustering/worker/Worker'
 import { CacheManager } from '../CacheManager'
 
-import { APIGuild, GatewayGuildMemberAddDispatchData } from 'discord-api-types'
+import { APIGuild, ChannelType, GatewayGuildMemberAddDispatchData } from 'discord-api-types/v9'
 
 export function guilds (events: CacheManager, worker: Worker): void {
   worker.guilds = new Collection()
@@ -17,8 +17,8 @@ export function guilds (events: CacheManager, worker: Worker): void {
     delete guild.members
 
     guild.channels?.forEach(channel => {
-      channel.guild_id = guild.id
-      events.emit('CHANNEL_CREATE', channel)
+      (channel as any).guild_id = guild.id
+      events.emit('CHANNEL_CREATE', channel as any)
     })
     delete guild.channels
 

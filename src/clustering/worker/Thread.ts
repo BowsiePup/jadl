@@ -1,4 +1,4 @@
-import { APIGuild, Snowflake } from 'discord-api-types'
+import { APIGuild, Snowflake } from 'discord-api-types/v9'
 import { workerData, parentPort, MessagePort } from 'worker_threads'
 
 import { ClusterStats, ThreadComms, ThreadEvents } from '../ThreadComms'

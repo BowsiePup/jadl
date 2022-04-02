@@ -7,7 +7,7 @@ import { Shard } from '../../../socket/Shard'
 import { SingleSharder } from './SingleSharder'
 import { SingleThread } from './SingleThread'
 import { BotOptions } from '../../../typings/options'
-import { APIGatewayBotInfo } from 'discord-api-types'
+import { APIGatewayBotInfo } from 'discord-api-types/v9'
 
 export class SingleWorker extends Worker<{ DEBUG: string }> {
   cacheManager: CacheManager

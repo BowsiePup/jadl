@@ -1,7 +1,7 @@
 import { Master } from './Master'
 import { Worker } from 'worker_threads'
 import { ThreadComms } from '../ThreadComms'
-import { APIGuild, Snowflake } from 'discord-api-types'
+import { APIGuild, Snowflake } from 'discord-api-types/v9'
 
 /**
  * Cluster utility for working with the thread from the master process

@@ -1,4 +1,4 @@
-import { APIEmbed } from 'discord-api-types'
+import { APIEmbed } from 'discord-api-types/v9'
 
 export { ClusterStats, ShardStats, State, ThreadEvents } from './clustering/ThreadComms'
 
@@ -19,7 +19,7 @@ export { PermissionUtils, humanReadablePermissions } from './utils/Permissions'
 
 export { DiscordEventMap, CachedGuild, CachedVoiceState } from './typings/Discord'
 
-export { Snowflake } from 'discord-api-types'
+export { Snowflake } from 'discord-api-types/v9'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

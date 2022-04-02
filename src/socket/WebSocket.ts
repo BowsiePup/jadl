@@ -1,6 +1,6 @@
 import { Shard } from './Shard'
 import WebSocket from 'ws'
-import { GatewayDispatchEvents, GatewayDispatchPayload, GatewayHelloData, GatewayOpcodes, GatewaySendPayload } from 'discord-api-types'
+import { GatewayDispatchEvents, GatewayDispatchPayload, GatewayHelloData, GatewayOpcodes, GatewaySendPayload } from 'discord-api-types/v9'
 
 /**
  * Structure in charge of managing Discord communcation over websocket

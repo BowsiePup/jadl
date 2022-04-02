@@ -1,4 +1,4 @@
-import { ChannelType } from 'discord-api-types'
+import { ChannelType } from 'discord-api-types/v9'
 import { Cluster } from '../clustering/master/Cluster'
 import { CachedGuild, DiscordEventMap } from './Discord'
 

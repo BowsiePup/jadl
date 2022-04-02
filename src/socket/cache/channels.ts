@@ -1,6 +1,7 @@
 import Collection from '@discordjs/collection'
-import { APIChannel } from 'discord-api-types'
+import { APIChannel } from 'discord-api-types/v9'
 import { Worker } from '../../clustering/worker/Worker'
+import { CachedChannel } from '../../typings/Discord'
 import { CacheManager } from '../CacheManager'
 
 export function channels (events: CacheManager, worker: Worker): void {
@@ -8,9 +9,9 @@ export function channels (events: CacheManager, worker: Worker): void {
 
   events.on('CHANNEL_CREATE', (c) => {
     if (worker.options.cache.channels !== true && !worker.options.cache.channels.includes(c.type)) return
-    let channel = Object.assign({}, c)
+    let channel = Object.assign({}, c) as CachedChannel
     if (worker.options.cacheControl.channels) {
-      const newChannel = {} as APIChannel
+      const newChannel = {} as CachedChannel
       worker.options.cacheControl.channels.forEach(key => {
         newChannel[key] = channel[key] as never
       })
@@ -31,7 +32,7 @@ export function channels (events: CacheManager, worker: Worker): void {
       worker.options.cacheControl.channels.forEach(key => {
         currentChannel[key] = channel[key] as never
       })
-      currentChannel.guild_id = channel.guild_id
+      currentChannel.guild_id = (channel as CachedChannel).guild_id
       currentChannel.id = channel.id
     } else {
       Object.keys(channel).forEach(key => {
