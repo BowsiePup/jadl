@@ -1,13 +1,13 @@
 import { APIChannel, ChannelType } from 'discord-api-types/v9'
 import { Cluster } from '../clustering/master/Cluster'
-import { CachedGuild, DiscordEventMap } from './Discord'
+import { CachedGuild, DiscordEventMap, EventedGuild } from './Discord'
 
 type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends Array<infer U>
-    ? Array<DeepPartial<U>>
-    : T[P] extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : DeepPartial<T[P]>
+  ? Array<DeepPartial<U>>
+  : T[P] extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : DeepPartial<T[P]>
 }
 
 export interface BaseBotOptions {
@@ -130,7 +130,7 @@ type UnionKeys<T> = T extends T ? keyof T : never
  * Changes what properties of a cache should be kept
  */
 export interface CacheControlOptions {
-  guilds: Array<keyof CachedGuild> | false
+  guilds: Array<keyof EventedGuild> | false
   roles: Array<keyof DiscordEventMap['GUILD_ROLE_CREATE']['role']> | false
   channels: Array<UnionKeys<APIChannel>> | false
   members: Array<keyof DiscordEventMap['GUILD_MEMBER_ADD']> | false
