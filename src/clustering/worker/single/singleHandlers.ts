@@ -1,11 +1,15 @@
-import { ThreadEvents, ResolveFunction } from '../../ThreadComms'
+import { ThreadEvents, ResolveFunction } from "../../ThreadComms"
 
-import { APIGuild } from 'discord-api-types/v9'
-import { SingleWorker } from './SingleWorker'
-import { Worker } from '../Worker'
+import { SingleWorker } from "./SingleWorker"
+import { Worker } from "../Worker"
+import { EventedGuild } from "../../../typings/Discord"
 
 export const handlers: {
-  [key in keyof ThreadEvents]?: (this: Worker & SingleWorker, data: ThreadEvents[key]['send'], resolve: ResolveFunction<key>) => void | Promise<void>
+  [key in keyof ThreadEvents]?: (
+    this: Worker & SingleWorker,
+    data: ThreadEvents[key]["send"],
+    resolve: ResolveFunction<key>
+  ) => void | Promise<void>
 } = {
   REGISTER_SHARD: function ({ id }, respond) {
     this.sharder?.register(id)
@@ -24,44 +28,52 @@ export const handlers: {
     this.debug(msg)
   },
   RESTART_CLUSTER: function ({ id }, _) {
-    console.warn('RESTART_CLUSTER is being used in Singleton mode, process.exit()ing')
+    console.warn(
+      "RESTART_CLUSTER is being used in Singleton mode, process.exit()ing"
+    )
     process.exit()
   },
   RESTART_SHARD: function ({ id }, _) {
     this.shards.get(id)?.restart(true)
   },
   GET_GUILD: async function ({ id }, respond) {
-    const guild = this.guilds.get(id) as APIGuild
-    if (!guild) return respond({ error: 'Not in guild' })
+    const guild = this.guilds.get(id) as EventedGuild
+    if (!guild) return respond({ error: "Not in guild" })
 
     if (this.guildRoles) {
       guild.roles = this.guildRoles.get(guild.id)?.array() ?? []
     }
     if (this.channels) {
-      guild.channels = this.channels.filter(x => x.guild_id === guild.id).array()
+      guild.channels = this.channels
+        .filter((x) => x.guild_id === guild.id)
+        .array()
     }
 
     respond(guild)
   },
   BROADCAST_EVAL: async function (code, respond) {
-    respond({ error: 'BROADCAST_EVAL cannot be used in Singleton mode' })
+    respond({ error: "BROADCAST_EVAL cannot be used in Singleton mode" })
   },
   MASTER_EVAL: async function (code, respond) {
-    respond?.({ error: 'MASTER_EVAL cannot be used in Singleton mode' })
+    respond?.({ error: "MASTER_EVAL cannot be used in Singleton mode" })
   },
   STATS: async function (_, respond) {
-    respond([{
-      cluster: {
-        id: this.comms.id,
-        memory: process.memoryUsage().heapTotal,
-        uptime: process.uptime()
+    respond([
+      {
+        cluster: {
+          id: this.comms.id,
+          memory: process.memoryUsage().heapTotal,
+          uptime: process.uptime(),
+        },
+        shards: this.shards.map((x) => ({
+          id: x.id,
+          ping: x.ping,
+          guilds: this.guilds.filter?.(
+            (guild) => this.guildShard(guild.id).id === x.id
+          ).size,
+          state: x.state,
+        })),
       },
-      shards: this.shards.map(x => ({
-        id: x.id,
-        ping: x.ping,
-        guilds: this.guilds.filter?.(guild => this.guildShard(guild.id).id === x.id).size,
-        state: x.state
-      }))
-    }])
-  }
+    ])
+  },
 }

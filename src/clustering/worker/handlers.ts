@@ -1,14 +1,21 @@
-import { APIGuild } from 'discord-api-types/v9'
-import { ThreadEvents, ResolveFunction } from '../ThreadComms'
-import { Thread } from './Thread'
+import { EventedGuild } from "../../typings/Discord"
+import { ThreadEvents, ResolveFunction } from "../ThreadComms"
+import { Thread } from "./Thread"
 
 let receivedStart = false
 
 export const handlers: {
-  [key in keyof ThreadEvents]?: (this: Thread, data: ThreadEvents[key]['send'], resolve: ResolveFunction<key>) => void | Promise<void>
+  [key in keyof ThreadEvents]?: (
+    this: Thread,
+    data: ThreadEvents[key]["send"],
+    resolve: ResolveFunction<key>
+  ) => void | Promise<void>
 } = {
   START: async function (data, respond) {
-    this.worker.debug(`Received START on cluster ${this.id}${receivedStart ? '. Already Received!' : ''}`)
+    this.worker.debug(
+      `Received START on cluster ${this.id}${receivedStart ? ". Already Received!" : ""
+      }`
+    )
     if (receivedStart) return respond({})
 
     receivedStart = true
@@ -25,32 +32,35 @@ export const handlers: {
 
     const readyFn = (): void => {
       respond({ err: false })
-      shard.off('READY', readyFn)
-      shard.off('CLOSED', closedFn)
+      shard.off("READY", readyFn)
+      shard.off("CLOSED", closedFn)
     }
     const closedFn = (_code: number, _reason: string): void => {
       respond({ err: true })
-      shard.off('READY', readyFn)
-      shard.off('CLOSED', closedFn)
+      shard.off("READY", readyFn)
+      shard.off("CLOSED", closedFn)
     }
 
-    shard.on('READY', readyFn)
-    shard.on('CLOSED', closedFn)
+    shard.on("READY", readyFn)
+    shard.on("CLOSED", closedFn)
 
     shard.start()
   },
   RESTART_SHARD: function ({ id }) {
-    this.worker.shards.get(id)?.restart(true, 1002, 'Internally restarted')
+    this.worker.shards.get(id)?.restart(true, 1002, "Internally restarted")
   },
   GET_GUILD: function ({ id }, respond) {
-    const guild = Object.assign({}, this.worker.guilds.get(id)) as APIGuild
-    if (!guild || !guild.id) return respond({ error: 'Not in guild' })
+    const guild = Object.assign({}, this.worker.guilds.get(id)) as EventedGuild
+    if (!guild || !guild.id) return respond({ error: "Not in guild" })
 
     if (this.worker.guildRoles) {
       guild.roles = this.worker.guildRoles.get(guild.id)?.array() ?? []
     }
+
     if (this.worker.channels) {
-      guild.channels = this.worker.channels.filter(x => x.guild_id === guild.id).array()
+      guild.channels = this.worker.channels
+        .filter((x) => x.guild_id === guild.id)
+        .array()
     }
 
     respond(guild)
@@ -61,7 +71,8 @@ export const handlers: {
     try {
       // eslint-disable-next-line no-eval
       let ev = eval(code)
-      if (ev.then) ev = await ev.catch((err: Error) => ({ error: err.message }))
+      if (ev.then)
+        ev = await ev.catch((err: Error) => ({ error: err.message }))
       // @ts-expect-error eval can be any
       respond(ev)
     } catch (err) {
@@ -74,14 +85,16 @@ export const handlers: {
       cluster: {
         id: this.id,
         memory: process.memoryUsage().heapTotal,
-        uptime: process.uptime()
+        uptime: process.uptime(),
       },
-      shards: this.worker.shards.map(x => ({
+      shards: this.worker.shards.map((x) => ({
         id: x.id,
         ping: x.ping,
-        guilds: this.worker.guilds.filter?.(guild => this.worker.guildShard(guild.id).id === x.id).size,
-        state: x.state
-      }))
+        guilds: this.worker.guilds.filter?.(
+          (guild) => this.worker.guildShard(guild.id).id === x.id
+        ).size,
+        state: x.state,
+      })),
     })
-  }
+  },
 }

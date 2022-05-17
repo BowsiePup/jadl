@@ -29,7 +29,7 @@
     "@discordjs/rest": "^0.3.0-dev.1644235835.b936103",
     "@jpbberry/cache": "^1.0.4",
     "@jpbberry/typed-emitter": "^1.0.1",
-    "discord-api-types": "^0.30.0",
+    "discord-api-types": "^0.33.0",
     "form-data": "^3.0.0",
     "node-fetch": "^2.6.1",
     "querystring": "^0.2.0",
