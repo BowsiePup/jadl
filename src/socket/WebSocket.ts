@@ -50,7 +50,7 @@ export class DiscordSocket {
 
     this.connectTimeout = setTimeout(() => {
       if (!this.connected) return this.shard.restart(true, 1013, 'Didn\'t Connect in Time')
-    }, 120000)
+    }, 240000)
 
     this.ws
       ?.on('message', (data, isBuffer) => {
